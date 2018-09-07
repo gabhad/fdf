@@ -46,7 +46,6 @@ typedef struct		s_prog
 	int				s_l;
 	int				endian;
 	int				color;
-	int				lines;
 }					t_prog;
 
 /*
