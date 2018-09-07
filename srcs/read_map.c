@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghaddad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/07 08:11:06 by ghaddad           #+#    #+#             */
-/*   Updated: 2018/09/07 08:11:42 by ghaddad          ###   ########.fr       */
+/*   Created: 2018/09/07 14:04:58 by ghaddad           #+#    #+#             */
+/*   Updated: 2018/09/07 14:05:10 by ghaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	malloc_error(t_prog *prog)
+static t_line	create_line(char *str);
 {
-	ft_printf("Memory allocation error\n");
-	clear_struct(prog);
-	exit (0);
+	t_line	*line;
+
+	if (!(line = (t_line*)malloc(sizeof(t_line))))
+		malloc_error(prog);
+	line->line = ft_strdup(*str);
+	line->next = NULL;
+	ft_strdel(str);
 }
 
-void	no_map(t_prog *prog)
+void	read_map(t_prog *prog)
 {
-	ft_printf("Please input a valid file\n");
-	clear_struct(prog);
-	exit(0);
-}
+	char	*line;
 
-
-void	multi_maps(t_prog *prog)
-{
-	ft_printf("Please input one file only\n");
-	clear_struct(prog);
-	exit(0);
-}
-
-void	error(t_prog *prog)
-{
-	clear_struct(prog);
-	write(1, "Error.\n", 7);
-	exit(0);
+	if (get_next_line(prog->fd, &line) < 1)
+		no_map(prog);
+	create_line(line);
+	while (get_next_line(prog->fd, &line))
+		create_line(&line);
+	convert_map(prog);
 }

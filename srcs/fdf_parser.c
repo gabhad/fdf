@@ -12,28 +12,46 @@
 
 #include "fdf.h"
 
-void	flag_parser(int argc, char **argv, t_prog *prog)
+static void	flag_parser(char **argv, int i, t_prog *prog)
 {
-	int			i;
-
-	i = 1;
-	while (argv[i])
+	if (argv[i][0] != '-')
 	{
-		while (argv[i] && argv[i][0] != '-')
-			i++;
-		if (argv[i][0] == '-' && argv[i][1] == 's')
-			flag_s(prog, argv, i);
-
+		clear_struct(prog);
+		usage();
+	}
+	else if (argv[i][1] == 's')
+		flag_s(prog, argv, i);
+	else
+	{
+		clear_struct(prog);
+		usage();
 	}
 }
 
 void	fdf_parser(int argc, char **argv)
 {
 	t_prog		*prog;
+	int			i;
+	int			fd;
 
 	prog = NULL;
 	prog = init_prog(prog);
-	if (argc > 2)
-		flag_parser(argc, argv, prog);
-	read_map(argc_argv);
+	i = 1;
+	while (argv[i])
+	{
+		if ((fd = open(argv[i]) > 0) && prog->fd < 1)
+			prog->fd = fd;
+		else if (fd > 0 && prog->fd > 0)
+			multi_maps(prog);
+		else
+		{
+			flag_parser(argv, i, prog);
+			i++;
+		}
+		i++;
+	}
+	if (prog->fd < 1)
+		no_map(prog);
+	read_map(prog);
+	close(fd);
 }

@@ -17,6 +17,7 @@
 # include "../libft/includes/libft.h"
 # include "../libft/includes/ft_printf.h"
 # include <mlx.h>
+# include <fcntl.h>
 
 typedef struct		s_grid
 {
@@ -24,17 +25,28 @@ typedef struct		s_grid
 	int				height;
 }					t_grid;
 
+typedef struct 		s_line;
+{
+	char			*line;
+	struct s_line	*next;
+}					t_line;
+
 typedef struct		s_prog
 {
 	t_grid			*grid;
+	t_line			*first_line;
+	char			**map;
+	int				fd;
 	int				win_w;
-	int				win_h
+	int				win_h;
 	void			*init;
 	void			*window;
 	void			*img;
 	int				bpp;
 	int				s_l;
 	int				endian;
+	int				color;
+	int				lines;
 }					t_prog;
 
 /*
@@ -43,7 +55,11 @@ typedef struct		s_prog
 
 void			usage(void);
 void			error(t_prog *prog);
+void			malloc_error(t_prog *prog);
+void			no_map(t_prog *prog);
+void			multi_maps(t_prog *prog);
 void			clear_struct(t_prog *prog);
+void			clear_lines(t_prog *prog);
 
 /*
 ** Parsing functions
@@ -52,6 +68,8 @@ void			clear_struct(t_prog *prog);
 void			fdf_parser(int argc, char **argv, t_prog *prog);
 t_prog			init_prog(t_prog *prog);
 void			flag_s(t_prog *prog, char **argv, int i);
+void			read_map(t_prog *prog);
+void			convert_map(t_prog *prog);
 
 /*
 **	Drawing functions

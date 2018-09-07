@@ -18,6 +18,8 @@ static t_prog	init_grid(t_prog prog)
 
 	if (!(grid = (t_grid)malloc(sizeof(t_grid))))
 		error(prog);
+	grid->width = 0;
+	grid->height = 0;
 	prog->grid = &grid;
 	return (prog);
 }
@@ -29,5 +31,8 @@ t_prog			init_prog(t_prog *prog)
 	prog->grid = init_grid(prog);
 	prog->win_h = 600;
 	prog->win_w = 800;
+	prog->fd = -1;
+	prog->color = 0x00FFFFFF;
+	prog->map = NULL;
 	return (prog);
 }
