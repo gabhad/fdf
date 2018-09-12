@@ -12,25 +12,19 @@
 
 #include "fdf.h"
 
-static t_line	create_line(char *str);
-{
-	t_line	*line;
-
-	if (!(line = (t_line*)malloc(sizeof(t_line))))
-		malloc_error(prog);
-	line->line = ft_strdup(*str);
-	line->next = NULL;
-	ft_strdel(str);
-}
-
 void	read_map(t_prog *prog)
 {
 	char	*line;
 
+	line = NULL;
 	if (get_next_line(prog->fd, &line) < 1)
 		no_map(prog);
-	create_line(line);
+	prog->map = ft_strjoinfree(prog->map, line);
+	prog->map = ft_strjoinfree(prog->map, ft_strdup("\n"));
 	while (get_next_line(prog->fd, &line))
-		create_line(&line);
+	{
+		prog->map = ft_strjoinfree(prog->map, line);
+		prog->map = ft_strjoinfree(prog->map, ft_strdup("\n"));
+	}
 	convert_map(prog);
 }

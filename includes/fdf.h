@@ -25,17 +25,11 @@ typedef struct		s_grid
 	int				height;
 }					t_grid;
 
-typedef struct 		s_line;
-{
-	char			*line;
-	struct s_line	*next;
-}					t_line;
-
 typedef struct		s_prog
 {
 	t_grid			*grid;
-	t_line			*first_line;
-	char			**map;
+	char			*map;
+	int				**number_map;
 	int				fd;
 	int				win_w;
 	int				win_h;
@@ -57,6 +51,9 @@ void			error(t_prog *prog);
 void			malloc_error(t_prog *prog);
 void			no_map(t_prog *prog);
 void			multi_maps(t_prog *prog);
+void			invalid_map(t_prog *prog);
+int				invalid_chars(char *map);
+void			rectangle_map(t_prog *prog);
 void			clear_struct(t_prog *prog);
 void			clear_lines(t_prog *prog);
 
@@ -64,11 +61,13 @@ void			clear_lines(t_prog *prog);
 ** Parsing functions
 */
 
-void			fdf_parser(int argc, char **argv, t_prog *prog);
-t_prog			init_prog(t_prog *prog);
+void			fdf_parser(int argc, char **argv);
+t_prog			*init_prog(t_prog *prog);
 void			flag_s(t_prog *prog, char **argv, int i);
 void			read_map(t_prog *prog);
 void			convert_map(t_prog *prog);
+int				count_lines(t_prog *prog);
+int				count(t_prog *prog);
 
 /*
 **	Drawing functions

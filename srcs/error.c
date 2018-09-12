@@ -12,24 +12,30 @@
 
 #include "fdf.h"
 
-void	malloc_error(t_prog *prog)
+void	rectangle_map(t_prog *prog)
 {
-	ft_printf("Memory allocation error\n");
-	clear_struct(prog);
-	exit (0);
-}
-
-void	no_map(t_prog *prog)
-{
-	ft_printf("Please input a valid file\n");
+	ft_printf("Please enter a valid rectangle or square map.\n");
 	clear_struct(prog);
 	exit(0);
 }
 
+void	malloc_error(t_prog *prog)
+{
+	ft_printf("Memory allocation error.\n");
+	clear_struct(prog);
+	exit(0);
+}
+
+void	no_map(t_prog *prog)
+{
+	ft_printf("Please input a valid file.\n");
+	clear_struct(prog);
+	exit(0);
+}
 
 void	multi_maps(t_prog *prog)
 {
-	ft_printf("Please input one file only\n");
+	ft_printf("Please input one file only.\n");
 	clear_struct(prog);
 	exit(0);
 }

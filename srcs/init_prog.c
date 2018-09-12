@@ -12,21 +12,20 @@
 
 #include "fdf.h"
 
-static t_prog	init_grid(t_prog prog)
+static t_grid	*init_grid(t_prog *prog)
 {
-	t_grid	grid;
+	t_grid	*grid;
 
-	if (!(grid = (t_grid)malloc(sizeof(t_grid))))
+	if (!(grid = (t_grid*)malloc(sizeof(t_grid))))
 		error(prog);
-	grid->width = 0;
-	grid->height = 0;
-	prog->grid = &grid;
-	return (prog);
+	grid->width = -1;
+	grid->height = -1;
+	return (grid);
 }
 
-t_prog			init_prog(t_prog *prog)
+t_prog			*init_prog(t_prog *prog)
 {
-	if (!(prog = (t_prog)malloc(sizeof(t_prog))))
+	if (!(prog = (t_prog*)malloc(sizeof(t_prog))))
 		error(prog);
 	prog->grid = init_grid(prog);
 	prog->win_h = 600;
@@ -34,5 +33,9 @@ t_prog			init_prog(t_prog *prog)
 	prog->fd = -1;
 	prog->color = 0x00FFFFFF;
 	prog->map = NULL;
+	prog->number_map = NULL;
+	prog->init = NULL;
+	prog->window = NULL;
+	prog->img = NULL;
 	return (prog);
 }

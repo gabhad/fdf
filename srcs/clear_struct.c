@@ -12,43 +12,28 @@
 
 #include "fdf.h"
 
-void		clear_lines(t_prog *prog)
-{
-	t_line	*temp;
-	t_line	*tempbis;
-
-	temp = prog->first_line;
-	tempbis = NULL;
-	while (temp->next)
-	{
-		tempbis = temp->next;
-		ft_strdel(&(temp->line));
-		free(temp);
-		temp = tempbis;
-	}
-	ft_strdel(&(temp->line));
-	free(temp);
-}
-
-void		clear_table(char **map)
+static void	del_number(int **tab)
 {
 	int		i;
 
 	i = 0;
-	while (map[i])
-		ft_strdel(map[i++]);
-	free(map);
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
 void		clear_struct(t_prog *prog)
 {
-	free(prog->grid);
-	free(prog->prog);
-	free(prog->init);
-	free(prog->window);
-	free(prog->img);
-	if (map)
-		clear_table(map);
-	if (prog->first_line)
-		clear_lines(prog);
+	if (prog->grid)
+		free(prog->grid);
+	if (prog->init)
+		free(prog->init);
+	if (prog->window)
+		free(prog->window);
+	if (prog->img)
+		free(prog->img);
+	if (prog->map)
+		ft_strdel(&(prog->map));
+	if (prog->number_map)
+		del_number(prog->number_map);
 }

@@ -12,25 +12,61 @@
 
 #include "fdf.h"
 
-static int	count_lines(t_prog *prog)
+static void	clean_table(char **tab)
 {
 	int		i;
-	t_line	*temp;
 
-	i = 1;
-	temp = prog->first_line;
-	while (temp->next)
+	i = 0;
+	while (tab[i])
+		ft_strdel(&tab[i++]);
+	free(tab);
+}
+
+static int	**generate_number(t_prog *prog, char ***tab)
+{
+	int		**number_map;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!(number_map = (int**)malloc(sizeof(int*) * prog->grid->height)))
+		malloc_error(prog);
+	while (i < prog->grid->height)
 	{
-		temp = temp->next;
+		if (!(number_map[i] = (int*)malloc(sizeof(int) * prog->grid->width)))
+			malloc_error(prog);
+		while (j < prog->grid->width)
+		{
+			number_map[i][j] = ft_atoi(tab[i][j]);
+			j++;
+		}
+		j = 0;
 		i++;
 	}
-	return (i);
+	return (number_map);
 }
 
 void		convert_map(t_prog *prog)
 {
-	char	**map;
+	char	**tab;
+	char	***tab2;
+	int		i;
 
-	prog->grid->width = count_lines(prog);
-	map = (char**)malloc(sizeof(char*) * lines + 1)
+	prog->grid->height = count_lines(prog);
+	if (!invalid_chars(prog->map))
+		invalid_map(prog);
+	if (!count(prog))
+		rectangle_map(prog);
+	i = -1;
+	tab = ft_strsplit(prog->map, '\n');
+	if (!(tab2 = (char***)malloc(sizeof(char**) * (prog->grid->height + 1))))
+		malloc_error(prog);
+	while (tab[++i])
+		tab2[i] = ft_strsplit(tab[i], ' ');
+	prog->number_map = generate_number(prog, tab2);
+	clean_table(tab);
+	/*i = -1;
+	while (tab2[++i])
+		clean_table(tab2[i]);*/
 }

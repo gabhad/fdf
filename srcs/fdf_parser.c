@@ -28,7 +28,7 @@ static void	flag_parser(char **argv, int i, t_prog *prog)
 	}
 }
 
-void	fdf_parser(int argc, char **argv)
+void		fdf_parser(int argc, char **argv)
 {
 	t_prog		*prog;
 	int			i;
@@ -37,9 +37,10 @@ void	fdf_parser(int argc, char **argv)
 	prog = NULL;
 	prog = init_prog(prog);
 	i = 1;
-	while (argv[i])
+	while (i < argc)
 	{
-		if ((fd = open(argv[i]) > 0) && prog->fd < 1)
+		fd = open(argv[i], O_RDONLY);
+		if (fd > -1 && prog->fd < 1)
 			prog->fd = fd;
 		else if (fd > 0 && prog->fd > 0)
 			multi_maps(prog);
@@ -53,5 +54,5 @@ void	fdf_parser(int argc, char **argv)
 	if (prog->fd < 1)
 		no_map(prog);
 	read_map(prog);
-	close(fd);
+	close(prog->fd);
 }

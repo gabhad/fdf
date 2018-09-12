@@ -16,8 +16,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 32
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memset(void *str, int c, size_t n);

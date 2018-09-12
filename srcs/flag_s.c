@@ -24,7 +24,7 @@ static char	**check_valid(char *str)
 	int		i;
 
 	i = 0;
-	if (!ft_strstr(str, '*'))
+	if (!ft_strstr(str, "*"))
 	{
 		invalid();
 		return (NULL);
@@ -33,26 +33,27 @@ static char	**check_valid(char *str)
 	while (tab[i])
 		i++;
 	if (i > 1 || ft_atoi(tab[0]) < 300 || ft_atoi(tab[1]) < 300
-				|| ft_atoi(tab[0]) > 2560 || ft_atoi(tab[1] > 1440));
+				|| ft_atoi(tab[0]) > 2560 || ft_atoi(tab[1]) > 1440)
 	{
 		invalid();
 		return (NULL);
 	}
+	return (tab);
 }
 
-void	flag_s(t_prog *prog, char **argv, int i)
+void		flag_s(t_prog *prog, char **argv, int i)
 {
 	char	**tab;
 
 	if (!argv[i + 1])
 	{
-		clear_prog(prog);
+		clear_struct(prog);
 		usage();
 	}
 	if (!(tab = check_valid(argv[i + 1])))
 	{
-		clear_prog(prog);
-		exit (0);
+		clear_struct(prog);
+		exit(0);
 	}
 	prog->win_w = ft_atoi(tab[0]);
 	prog->win_h = ft_atoi(tab[1]);

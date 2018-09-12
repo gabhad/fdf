@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		ft_wordcount(char const *s, char delim)
+static int		word(char const *s, char delim)
 {
 	int i;
 	int word;
@@ -53,20 +53,20 @@ char			**ft_strsplit(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	k = ft_wordcount(s, c);
-	if ((tab = (char **)malloc(sizeof(char*) * (k + 1))) == NULL)
+	if (!(tab = (char **)malloc(sizeof(char*) * (word(s, c) + 1))))
 		return (NULL);
-	while (s[i] && j < ft_wordcount(s, c))
+	while (s[i] && j < word(s, c))
 	{
 		k = 0;
 		while (s[i] == c)
 			i++;
 		count = ft_lettercount(&s[i], c);
-		if ((tab[j] = (char *)malloc(count + 1)) == NULL)
+		if (!(tab[j] = (char *)malloc(sizeof(char) * (count + 1))))
 			return (NULL);
-		while (s[i] != c && s[i] && (k < count))
+		while (s[i] && s[i] != c && (k < count))
 			tab[j][k++] = s[i++];
-		tab[j++][k] = 0;
+		tab[j][k] = 0;
+		j++;
 	}
 	tab[j] = 0;
 	return (tab);

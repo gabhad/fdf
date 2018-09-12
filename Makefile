@@ -12,7 +12,16 @@
 
 NAME =			fdf
 
-SRC_FILES =		fdf.c
+SRC_FILES =		fdf.c \
+				clear_struct.c \
+				convert_map.c \
+				error.c \
+				error2.c \
+				fdf_parser.c \
+				flag_s.c \
+				init_prog.c \
+				map_checker.c \
+				read_map.c
 SRCS_PATH =		srcs/
 SRCS = 			$(addprefix $(SRCS_PATH), $(SRC_FILES))
 
