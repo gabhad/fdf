@@ -28,6 +28,7 @@ typedef struct		s_grid
 typedef struct		s_prog
 {
 	t_grid			*grid;
+	char			*title;
 	char			*map;
 	int				**number_map;
 	int				fd;
