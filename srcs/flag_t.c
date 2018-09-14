@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   flag_t.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghaddad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/07 09:08:47 by ghaddad           #+#    #+#             */
-/*   Updated: 2018/09/07 09:08:57 by ghaddad          ###   ########.fr       */
+/*   Created: 2018/09/14 16:08:04 by ghaddad           #+#    #+#             */
+/*   Updated: 2018/09/14 16:08:14 by ghaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	del_number(int **tab)
+void	flag_t(t_prog *prog, char **argv, int i)
 {
-	int		i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
-
-void		clear_struct(t_prog *prog)
-{
-	if (prog->grid)
-		free(prog->grid);
-	if (prog->init)
-		free(prog->init);
-	if (prog->window)
-		free(prog->window);
-	if (prog->img)
-		free(prog->img);
-	if (prog->map)
-		ft_strdel(&(prog->map));
-	if (prog->number_map)
-		del_number(prog->number_map);
-	free(prog);
+	// ecrire fonction
 }

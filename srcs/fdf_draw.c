@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   fdf_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghaddad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/07 09:08:47 by ghaddad           #+#    #+#             */
-/*   Updated: 2018/09/07 09:08:57 by ghaddad          ###   ########.fr       */
+/*   Created: 2018/09/14 15:51:17 by ghaddad           #+#    #+#             */
+/*   Updated: 2018/09/14 15:51:25 by ghaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	del_number(int **tab)
+void	fdf_draw(t_prog *prog)
 {
-	int		i;
+	void	*init;
+	void	*window;
 
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
-
-void		clear_struct(t_prog *prog)
-{
-	if (prog->grid)
-		free(prog->grid);
-	if (prog->init)
-		free(prog->init);
-	if (prog->window)
-		free(prog->window);
-	if (prog->img)
-		free(prog->img);
-	if (prog->map)
-		ft_strdel(&(prog->map));
-	if (prog->number_map)
-		del_number(prog->number_map);
-	free(prog);
+	init = mlx_init();
+	window = mlx_new_window(init, prog->win_h, prog->win_w, prog->title);
+	prog->init = init;
+	prog->window = window;
 }

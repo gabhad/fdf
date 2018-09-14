@@ -63,6 +63,7 @@ void			clear_lines(t_prog *prog);
 
 void			fdf_parser(int argc, char **argv);
 t_prog			*init_prog(t_prog *prog);
+void			flag_h(t_prog *prog);
 void			flag_s(t_prog *prog, char **argv, int i);
 void			read_map(t_prog *prog);
 void			convert_map(t_prog *prog);

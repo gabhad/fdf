@@ -21,6 +21,10 @@ static void	flag_parser(char **argv, int i, t_prog *prog)
 	}
 	else if (argv[i][1] == 's')
 		flag_s(prog, argv, i);
+	else if (argv[i][1] == 'h')
+		flag_h(prog);
+	else if (argv[i][1] == 't')
+		flag_t(prog, argv, i);
 	else
 	{
 		clear_struct(prog);
@@ -45,14 +49,13 @@ void		fdf_parser(int argc, char **argv)
 		else if (fd > 0 && prog->fd > 0)
 			multi_maps(prog);
 		else
-		{
-			flag_parser(argv, i, prog);
-			i++;
-		}
+			flag_parser(argv, i++, prog);
 		i++;
 	}
 	if (prog->fd < 1)
 		no_map(prog);
 	read_map(prog);
+	fdf_draw(prog);
 	close(prog->fd);
+	clear_struct(prog);
 }

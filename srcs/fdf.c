@@ -14,7 +14,7 @@
 
 void	usage(void)
 {
-	ft_printf("usage : ./fdf map.fdf -s [w*h]\n");
+	ft_printf("usage : ./fdf map.fdf -t Title -s [WxH] -h for help\n");
 	ft_printf("\tWhile using the program, zoom in/out using o/p\n");
 	ft_printf("\tMove using arrow keys\n");
 	ft_printf("\tClose the program using Esc.\n");

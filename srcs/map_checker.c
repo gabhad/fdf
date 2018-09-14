@@ -12,32 +12,39 @@
 
 #include "fdf.h"
 
+static int	count_bis(t_prog *prog, int i)
+{
+	int		j;
+
+	j = 0;
+	while (prog->map[i] != '\n')
+	{
+		while (prog->map[i] == ' ')
+			i++;
+		if (prog->map[i] != ' ' && prog->map[i] != '\n')
+			j++;
+		while (prog->map[i] != ' ' && prog->map[i] != '\n')
+			i++;
+	}
+	prog->grid->width < 0 ? prog->grid->width = j : 0;
+	if (j != prog->grid->width)
+		return (0);
+	return (i);
+}
+
 int	count(t_prog *prog)
 {
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
 	j = 0;
-	k = 0;
-	while (k < prog->grid->height)
+	while (j < prog->grid->height)
 	{
-		while (prog->map[i] != '\n')
-		{
-			while (prog->map[i] == ' ')
-				i++;
-			if (prog->map[i] != ' ' && prog->map[i] != '\n')
-				j++;
-			while (prog->map[i] != ' ' && prog->map[i] != '\n')
-				i++;
-		}
-		prog->grid->width < 0 ? prog->grid->width = j : 0;
-		if (j != prog->grid->width)
+		if (!(i = count_bis(prog, i)))
 			return (0);
-		j = 0;
-		k++;
 		i++;
+		j++;
 	}
 	return (1);
 }

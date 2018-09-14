@@ -17,7 +17,9 @@ SRC_FILES =		fdf.c \
 				convert_map.c \
 				error.c \
 				error2.c \
+				fdf_draw.c \
 				fdf_parser.c \
+				flag_h.c \
 				flag_s.c \
 				init_prog.c \
 				map_checker.c \
