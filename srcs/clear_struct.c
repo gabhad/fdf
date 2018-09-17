@@ -26,6 +26,8 @@ void		clear_struct(t_prog *prog)
 {
 	if (prog->grid)
 		free(prog->grid);
+	if (prog->title)
+		ft_strdel(&(prog->title));
 	if (prog->init)
 		free(prog->init);
 	if (prog->window)
@@ -36,5 +38,7 @@ void		clear_struct(t_prog *prog)
 		ft_strdel(&(prog->map));
 	if (prog->number_map)
 		del_number(prog->number_map);
+	if (prog->array)
+		free(prog->array);
 	free(prog);
 }

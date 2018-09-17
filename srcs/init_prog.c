@@ -28,8 +28,9 @@ t_prog			*init_prog(t_prog *prog)
 	if (!(prog = (t_prog*)malloc(sizeof(t_prog))))
 		error(prog);
 	prog->grid = init_grid(prog);
-	prog->win_h = 600;
+	prog->title = ft_strdup("fdf");
 	prog->win_w = 800;
+	prog->win_h = 600;
 	prog->fd = -1;
 	prog->color = 0x00FFFFFF;
 	prog->map = NULL;
@@ -37,5 +38,6 @@ t_prog			*init_prog(t_prog *prog)
 	prog->init = NULL;
 	prog->window = NULL;
 	prog->img = NULL;
+	prog->array = NULL;
 	return (prog);
 }

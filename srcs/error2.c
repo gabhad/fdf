@@ -19,3 +19,11 @@ void	invalid_map(t_prog *prog)
 	clear_struct(prog);
 	exit(0);
 }
+
+void	error_title(t_prog *prog)
+{
+	ft_printf("Please enter a valid title - Less than 15 chars, only");
+	ft_printf(" printable chars\n");
+	clear_struct(prog);
+	exit(0);
+}

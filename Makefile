@@ -21,9 +21,12 @@ SRC_FILES =		fdf.c \
 				fdf_parser.c \
 				flag_h.c \
 				flag_s.c \
+				flag_t.c \
 				init_prog.c \
 				map_checker.c \
-				read_map.c
+				read_map.c \
+				special_events.c \
+				quit_program.c
 SRCS_PATH =		srcs/
 SRCS = 			$(addprefix $(SRCS_PATH), $(SRC_FILES))
 

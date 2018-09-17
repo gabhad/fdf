@@ -19,6 +19,14 @@
 # include <mlx.h>
 # include <fcntl.h>
 
+# define ESC 53
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
+# define ZOOM_IN 31
+# define ZOOM_OUT 35
+
 typedef struct		s_grid
 {
 	int				width;
@@ -37,6 +45,7 @@ typedef struct		s_prog
 	void			*init;
 	void			*window;
 	void			*img;
+	int				*array;
 	int				bpp;
 	int				s_l;
 	int				endian;
@@ -55,6 +64,7 @@ void			multi_maps(t_prog *prog);
 void			invalid_map(t_prog *prog);
 int				invalid_chars(char *map);
 void			rectangle_map(t_prog *prog);
+void			error_title(t_prog *prog);
 void			clear_struct(t_prog *prog);
 void			clear_lines(t_prog *prog);
 
@@ -66,6 +76,7 @@ void			fdf_parser(int argc, char **argv);
 t_prog			*init_prog(t_prog *prog);
 void			flag_h(t_prog *prog);
 void			flag_s(t_prog *prog, char **argv, int i);
+void			flag_t(t_prog *prog, char **argv, int i);
 void			read_map(t_prog *prog);
 void			convert_map(t_prog *prog);
 int				count_lines(t_prog *prog);
@@ -74,6 +85,10 @@ int				count(t_prog *prog);
 /*
 **	Drawing functions
 */
+
+void			fdf_draw(t_prog *prog);
+void			special_events(t_prog *prog);
+void			quit_program(t_prog *prog);
 
 /*
 ** MiniLibx functions

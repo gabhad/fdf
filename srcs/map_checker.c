@@ -32,7 +32,7 @@ static int	count_bis(t_prog *prog, int i)
 	return (i);
 }
 
-int	count(t_prog *prog)
+int			count(t_prog *prog)
 {
 	int		i;
 	int		j;
@@ -49,7 +49,7 @@ int	count(t_prog *prog)
 	return (1);
 }
 
-int	invalid_chars(char *map)
+int			invalid_chars(char *map)
 {
 	int		i;
 
@@ -64,7 +64,7 @@ int	invalid_chars(char *map)
 	return (1);
 }
 
-int	count_lines(t_prog *prog)
+int			count_lines(t_prog *prog)
 {
 	int		line;
 	int		i;

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   keyboard_events.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghaddad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 09:41:12 by ghaddad           #+#    #+#             */
-/*   Updated: 2018/09/05 09:41:16 by ghaddad          ###   ########.fr       */
+/*   Created: 2018/09/17 14:42:51 by ghaddad           #+#    #+#             */
+/*   Updated: 2018/09/17 14:43:02 by ghaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	usage(void)
+static int	key_press(int keycode, t_prog *prog)
 {
-	ft_printf("usage : ./fdf map.fdf [-t \"Title\"] [-s [WxH] ] -h for help\n");
-	ft_printf("\tWhile using the program, zoom in/out using o/p\n");
-	ft_printf("\tMove using arrow keys\n");
-	ft_printf("\tClose the program using Esc.\n");
-	exit(0);
+	if (keycode == 53)
+		quit_program(prog);
+	return (1);
 }
 
-int		main(int argc, char **argv)
+void		special_events(t_prog *prog)
 {
-	if (argc == 1)
-		usage();
-	fdf_parser(argc, argv);
-	return (0);
+	mlx_hook(prog->window, 2, 0, *(key_press), (t_prog*)prog);
+	mlx_hook(prog->window, 17, 0, (void*)(quit_program), (t_prog*)prog);
 }
