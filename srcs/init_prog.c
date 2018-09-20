@@ -30,7 +30,7 @@ t_prog			*init_prog(t_prog *prog)
 	prog->grid = init_grid(prog);
 	prog->title = ft_strdup("fdf");
 	prog->win_w = 800;
-	prog->win_h = 600;
+	prog->win_h = 800;
 	prog->fd = -1;
 	prog->color = 0x00FFFFFF;
 	prog->map = NULL;
@@ -39,5 +39,8 @@ t_prog			*init_prog(t_prog *prog)
 	prog->window = NULL;
 	prog->img = NULL;
 	prog->array = NULL;
+	prog->flag_s = 0;
+	prog->a = 0;
+	prog->b = 0;
 	return (prog);
 }

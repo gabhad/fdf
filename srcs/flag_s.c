@@ -68,5 +68,6 @@ void		flag_s(t_prog *prog, char **argv, int i)
 	}
 	prog->win_w = ft_atoi(tab[0]);
 	prog->win_h = ft_atoi(tab[1]);
+	prog->flag_s = 1;
 	del_tab(tab);
 }

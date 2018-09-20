@@ -12,20 +12,18 @@
 
 #include "fdf.h"
 
-static void	del_number(int **tab)
+static void	del_number(int **tab, int n)
 {
 	int		i;
 
 	i = 0;
-	while (tab[i])
+	while (i < n)
 		free(tab[i++]);
 	free(tab);
 }
 
 void		clear_struct(t_prog *prog)
 {
-	if (prog->grid)
-		free(prog->grid);
 	if (prog->title)
 		ft_strdel(&(prog->title));
 	if (prog->init)
@@ -37,7 +35,9 @@ void		clear_struct(t_prog *prog)
 	if (prog->map)
 		ft_strdel(&(prog->map));
 	if (prog->number_map)
-		del_number(prog->number_map);
+		del_number(prog->number_map, prog->grid->height);
+	if (prog->grid)
+		free(prog->grid);
 	if (prog->array)
 		free(prog->array);
 	free(prog);

@@ -50,6 +50,12 @@ typedef struct		s_prog
 	int				s_l;
 	int				endian;
 	int				color;
+	int				flag_s;
+	int				a;
+	int				b;
+	int				start;
+	int				x_step;
+	int				y_step;
 }					t_prog;
 
 /*
@@ -57,16 +63,24 @@ typedef struct		s_prog
 */
 
 void			usage(void);
+int				invalid_chars(char *map);
+void			clear_struct(t_prog *prog);
+void			clear_lines(t_prog *prog);
+
+/*
+** Error functions
+*/
+
 void			error(t_prog *prog);
 void			malloc_error(t_prog *prog);
 void			no_map(t_prog *prog);
 void			multi_maps(t_prog *prog);
 void			invalid_map(t_prog *prog);
-int				invalid_chars(char *map);
 void			rectangle_map(t_prog *prog);
 void			error_title(t_prog *prog);
-void			clear_struct(t_prog *prog);
-void			clear_lines(t_prog *prog);
+void			size_error(t_prog *prog, int i);
+void			map_too_big(t_prog *prog);
+void			map_too_small(t_prog *prog);
 
 /*
 ** Parsing functions
@@ -86,7 +100,9 @@ int				count(t_prog *prog);
 **	Drawing functions
 */
 
-void			fdf_draw(t_prog *prog);
+void			fdf_draw(t_prog *p);
+void			draw_img(t_prog *prog, int a, int b);
+void			place_next_pixel(t_prog *prog, int i, int j);
 void			special_events(t_prog *prog);
 void			quit_program(t_prog *prog);
 

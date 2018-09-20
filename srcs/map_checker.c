@@ -39,7 +39,7 @@ int			count(t_prog *prog)
 
 	i = 0;
 	j = 0;
-	while (j < prog->grid->height)
+	while (i < prog->grid->height)
 	{
 		if (!(i = count_bis(prog, i)))
 			return (0);

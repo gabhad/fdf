@@ -15,6 +15,7 @@ NAME =			fdf
 SRC_FILES =		fdf.c \
 				clear_struct.c \
 				convert_map.c \
+				draw_img.c \
 				error.c \
 				error2.c \
 				fdf_draw.c \
@@ -25,6 +26,7 @@ SRC_FILES =		fdf.c \
 				init_prog.c \
 				map_checker.c \
 				read_map.c \
+				place_next_pixel.c \
 				special_events.c \
 				quit_program.c
 SRCS_PATH =		srcs/

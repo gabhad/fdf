@@ -27,3 +27,25 @@ void	error_title(t_prog *prog)
 	clear_struct(prog);
 	exit(0);
 }
+
+void	size_error(t_prog *prog, int i)
+{
+	ft_printf("For comfort reasons, please enter a valid window size (Min ");
+	ft_printf("%dx%d).\n", i, i);
+	clear_struct(prog);
+	exit(0);
+}
+
+void	map_too_big(t_prog *prog)
+{
+	ft_printf("The map you entered is too big (max 200x200)\n");
+	clear_struct(prog);
+	exit(0);
+}
+
+void	map_too_small(t_prog *prog)
+{
+	ft_printf("The map you entered is too small (min 2x2\n");
+	clear_struct(prog);
+	exit(0);
+}

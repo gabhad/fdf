@@ -62,7 +62,7 @@ void		convert_map(t_prog *prog)
 	tab = ft_strsplit(prog->map, '\n');
 	if (!(tab2 = (char***)malloc(sizeof(char**) * (prog->grid->height + 1))))
 		malloc_error(prog);
-	while (++i < prog->grid->width)
+	while (++i < prog->grid->height)
 		tab2[i] = ft_strsplit(tab[i], ' ');
 	prog->number_map = generate_number(prog, tab2);
 	clean_table(tab);
@@ -70,4 +70,8 @@ void		convert_map(t_prog *prog)
 	while (i < prog->grid->height)
 		clean_table(tab2[i++]);
 	free(tab2);
+	if (prog->grid->width < 2 || prog->grid->height < 2)
+		map_too_small(prog);
+	if (prog->grid->width > 200 || prog->grid->height > 200)
+		map_too_big(prog);
 }
