@@ -15,7 +15,6 @@ NAME =			fdf
 SRC_FILES =		fdf.c \
 				clear_struct.c \
 				convert_map.c \
-				draw_img.c \
 				error.c \
 				error2.c \
 				fdf_draw.c \

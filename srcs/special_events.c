@@ -14,20 +14,20 @@
 
 static int	key_press(int keycode, t_prog *prog)
 {
-	if (keycode == 53)
+	if (keycode == ESC)
 		quit_program(prog);
 	return (1);
 	if (keycode > 122 && keycode < 127)
 	{
 		mlx_destroy_image(prog->init, prog->img);
-		if (keycode == 123)
-			prog->a = prog->a - 15;
-		else if (keycode == 124)
-			prog->a = prog->a + 15;
-		else if (keycode == 125)
-			prog->b = prog->b + 15;
-		else if (keycode == 126)
-			prog->b = prog->b - 15;
+		if (keycode == LEFT)
+			prog->a = prog->a - 50;
+		else if (keycode == RIGHT)
+			prog->a = prog->a + 50;
+		else if (keycode == DOWN)
+			prog->b = prog->b + 50;
+		else if (keycode == UP)
+			prog->b = prog->b - 50;
 		draw_img(prog, prog->a, prog->b);
 	}
 }
@@ -35,5 +35,5 @@ static int	key_press(int keycode, t_prog *prog)
 void		special_events(t_prog *prog)
 {
 	mlx_hook(prog->window, 2, 0, *(key_press), (t_prog*)prog);
-	//mlx_hook(prog->window, 17, 0, (void*)(quit_program), (t_prog*)prog);
+	mlx_hook(prog->window, 17, 0, (void*)(quit_program), (t_prog*)prog);
 }

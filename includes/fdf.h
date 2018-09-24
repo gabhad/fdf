@@ -26,6 +26,12 @@
 # define RIGHT 124
 # define ZOOM_IN 31
 # define ZOOM_OUT 35
+# define BLUE 0x000000FF
+# define RED 0x00FF0000
+# define YELLOW 0x00FFFF00
+# define ORANGE 0x00ED7F10
+# define DARK_RED 0x006D071A
+# define WHITE 0x00FFFFFF
 
 typedef struct		s_grid
 {

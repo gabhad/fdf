@@ -44,23 +44,50 @@ static void	resize_map(t_prog *prog)
 	x = prog->win_w / z;
 	y = prog->win_h / z;
 	if ((x < 5 || y < 4) && prog->flag_s)
-		size_error(prog, 4 * z + 20);
+		size_error(prog, 4 * z + 40);
 	if (x < 4 && !prog->flag_s)
-		prog->win_w = 4 * z + 20;
+		prog->win_w = 4 * z + 40;
 	if (y < 4 && !prog->flag_s)
-		prog->win_h = 4 * z + 20;
+		prog->win_h = 4 * z + 40;
+}
 
+void		draw_img(t_prog *prog, int a, int b)
+{
+	int		start;
+	int		i;
+	int		j;
+
+	start = b * prog->win_h + prog->win_h * prog->win_w / 2 + a;
+	prog->start = start;
+	i = 0;
+	j = 0;
+	while (i < prog->grid->width)
+	{
+		while (j < prog->grid->height)
+		{
+			place_next_pixel(prog, i, j);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
 }
 
 void		fdf_draw(t_prog *p)
 {
-	int 	*array;
+	int		*array;
+	int		x_step;
+	int		y_step;
 
 	resize_map(p);
 	init_draw(p);
 	init_img(p);
 	array = (int*)mlx_get_data_addr(p->img, &p->bpp, &p->s_l, &p->endian);
 	p->array = array;
+	x_step = (p->win_w - 40) / (p->grid->width + p->grid->height);
+	y_step = (p->win_h - 40) / (p->grid->width + p->grid->height);
+	p->x_step = x_step;
+	p->y_step = y_step;
 	draw_img(p, p->a, p->b);
 	mlx_put_image_to_window(p->init, p->window, p->img, 0, 0);
 	special_events(p);
