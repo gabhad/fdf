@@ -13,6 +13,7 @@
 NAME =			fdf
 
 SRC_FILES =		fdf.c \
+				bresenham.c \
 				clear_struct.c \
 				convert_map.c \
 				error.c \

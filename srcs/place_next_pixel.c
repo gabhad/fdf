@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void	put_pixel(t_prog *prog, int x, int y, int color)
+void	put_pixel(t_prog *prog, int x, int y, int color)
 {
 	int	pix;
 

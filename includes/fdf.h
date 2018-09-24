@@ -111,6 +111,8 @@ void			draw_img(t_prog *prog, int a, int b);
 void			place_next_pixel(t_prog *prog, int i, int j);
 void			special_events(t_prog *prog);
 void			quit_program(t_prog *prog);
+void			bresenham(t_prog *p, int x1, int y1, int coord);
+void			put_pixel(t_prog *prog, int x, int y, int color);
 
 /*
 ** MiniLibx functions
