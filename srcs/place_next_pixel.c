@@ -12,54 +12,49 @@
 
 #include "fdf.h"
 
-void	put_pixel(t_prog *prog, int x, int y, int color)
+void		put_pixel(t_prog *prog, int x, int y, int color)
 {
 	int	pix;
 
-	if (x < 0 || x > prog->win_w || y < 0 || y > prog->win_h)
+	if (x < 1 || x > prog->win_w - 1 || y < 1 || y > prog->win_h - 1)
 		return ;
 	pix = y * prog->win_w + x;
-	//printf("x = %d - y %d\npix - %d\n", x, y, pix);
 	prog->array[pix] = color;
 }
 
-static void	draw_line(t_prog *p, int i, int j, int coord)
+static void	draw_line(t_prog *p, int i, int j)
 {
 	int	x1;
 	int	y1;
-	int	x2;
-	int	y2;
 	int	el;
 
-	x2 = coord % p->win_w;
-	y2 = coord / p->win_w;
 	el = p->number_map[i][j];
 	x1 = (i + j) * p->x_step + p->start % p->win_w;
 	y1 = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
-	if ((x2 - x1) == (y2 - y1))
-		while (x1 != x2)
+	if ((p->point->x - x1) == (p->point->y - y1))
+		while (x1 != p->point->x)
 			put_pixel(p, ++x1, ++y1, WHITE);
-	else if ((x2 - x1) == (y1 - y2))
-		while (x1 != x2)
+	else if ((p->point->x - x1) == (y1 - p->point->y))
+		while (x1 != p->point->x)
 			put_pixel(p, ++x1, --y1, WHITE);
 	else
-		bresenham(p, x1, y1, coord);
+		bresenham(p, x1, y1);
 }
 
 void		place_next_pixel(t_prog *p, int i, int j)
 {
-	int	x;
-	int y;
-	int el;
+	int 	el;
+	t_point *point;
 
 	el = p->number_map[i][j];
-	x = (i + j) * p->x_step + p->start % p->win_w;
-	y = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
-	//ft_printf("i = %d\nj = %d\n", i, j);
-	//ft_printf("x = %d - y = %d\n", x, y);
-	put_pixel(p, x, y, WHITE);
+	if (!(point = (t_point*)malloc(sizeof(t_point))))
+		malloc_error(p);
+	p->point = point;
+	point->x = (i + j) * p->x_step + p->start % p->win_w;
+	point->y = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
+	put_pixel(p, point->x, point->y, WHITE);
 	if (i > 0)
-		draw_line(p, i - 1, j, y * p->win_w + x);
+		draw_line(p, i - 1, j);
 	if (j > 0)
-		draw_line(p, i, j - 1, y * p->win_w + x);
+		draw_line(p, i, j - 1);
 }

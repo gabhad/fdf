@@ -85,9 +85,9 @@ void		fdf_draw(t_prog *p)
 		y_step = (p->win_h - 100) / (p->grid->width + p->grid->height);
 		p->x_step = x_step;
 		p->y_step = y_step;
+		resize_map(p);
+		init_draw(p);
 	}
-	resize_map(p);
-	init_draw(p);
 	init_img(p);
 	array = (int*)mlx_get_data_addr(p->img, &p->bpp, &p->s_l, &p->endian);
 	p->array = array;

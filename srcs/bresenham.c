@@ -12,74 +12,61 @@
 
 #include "fdf.h"
 
-static void y_big(t_prog *p, int x1, int y1, int coord)
+static void	y_big(t_prog *p, int x1, int y1)
 {
-	int	x2;
-	int	y2;
 	int y;
 	int	fault;
 
 	y = y1;
-	x2 = coord % p->win_w;
-	y2 = (coord - x2) / p->win_w;
-	fault = abs(y2 - y1) / 2;
-	while (x1 != x2)
+	fault = abs(p->point->y - y1) / 2;
+	while (x1 != p->point->x)
 	{
-		fault = fault - (x2 - x1);
+		fault = fault - (p->point->x - x1);
 		if (fault > 0)
 		{
-			if (y > y2)
+			if (y > p->point->y)
 				put_pixel(p, x1, y1--, WHITE);
 			else
 				put_pixel(p, x1, y1++, WHITE);
 		}
 		else
 		{
-			if (y > y2)
+			if (y > p->point->y)
 				put_pixel(p, x1++, y1--, WHITE);
 			else
 				put_pixel(p, x1++, y1++, WHITE);
-			fault = fault + abs(y2 - y1);
+			fault = fault + abs(p->point->y - y1);
 		}
 	}
 }
 
-static void	x_big(t_prog *p, int x1, int y1, int coord)
+static void	x_big(t_prog *p, int x1, int y1)
 {
-	int	x2;
-	int	y2;
 	int	fault;
 	int	y;
 
 	y = y1;
-	x2 = coord % p->win_w;
-	y2 = (coord - x2) / p->win_w;
-	fault = (x2 - x1) / 2;
-	while (x1 != x2)
+	fault = (p->point->x - x1) / 2;
+	while (x1 != p->point->x)
 	{
-		fault = fault - abs(y2 - y1);
+		fault = fault - abs(p->point->y - y1);
 		if (fault > 0)
 			put_pixel(p, x1++, y1, WHITE);
 		else
 		{
-			if (y > y2)
+			if (y > p->point->y)
 				put_pixel(p, x1++, y1--, WHITE);
 			else
 				put_pixel(p, x1++, y1++, WHITE);
-			fault = fault + x2 - x1;
+			fault = fault + p->point->x - x1;
 		}
 	}
 }
 
-void		bresenham(t_prog *p, int x1, int y1, int coord)
+void		bresenham(t_prog *p, int x1, int y1)
 {
-	int	x2;
-	int	y2;
-
-	x2 = coord % p->win_w;
-	y2 = (coord - x2) / p->win_w;
-	if (x2 - x1 < abs(y2 - y1))
-		y_big(p, x1, y1, coord);
+	if ((p->point->x - x1) < abs(p->point->y - y1))
+		y_big(p, x1, y1);
 	else
-		x_big(p, x1, y1, coord);
+		x_big(p, x1, y1);
 }

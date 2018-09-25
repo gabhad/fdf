@@ -26,7 +26,9 @@
 # define RIGHT 124
 # define ZOOM_IN 31
 # define ZOOM_OUT 35
-# define STEP .4
+# define PLUS 69
+# define MINUS 78
+# define STEP .3
 # define BLUE 0x000000FF
 # define RED 0x00FF0000
 # define YELLOW 0x00FFFF00
@@ -43,9 +45,16 @@ typedef struct		s_grid
 	int				height;
 }					t_grid;
 
+typedef struct		t_point
+{
+	int				x;
+	int				y;
+}					t_point;
+
 typedef struct		s_prog
 {
 	t_grid			*grid;
+	t_point			*point;
 	char			*title;
 	char			*map;
 	int				**number_map;
@@ -115,7 +124,7 @@ void			draw_img(t_prog *prog, int a, int b);
 void			place_next_pixel(t_prog *prog, int i, int j);
 void			special_events(t_prog *prog);
 void			quit_program(t_prog *prog);
-void			bresenham(t_prog *p, int x1, int y1, int coord);
+void			bresenham(t_prog *p, int x1, int y1);
 void			put_pixel(t_prog *prog, int x, int y, int color);
 
 /*

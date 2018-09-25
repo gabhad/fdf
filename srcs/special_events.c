@@ -16,20 +16,22 @@ static int	key_press(int keycode, t_prog *prog)
 {
 	if (keycode == ESC)
 		quit_program(prog);
-	return (1);
-	if (keycode > 122 && keycode < 127)
+	if ((keycode > 122 && keycode < 127) || keycode == PLUS || keycode == MINUS)
 	{
 		mlx_destroy_image(prog->init, prog->img);
 		if (keycode == LEFT)
-			prog->a = prog->a - 50;
+			prog->a = prog->a - 10;
 		else if (keycode == RIGHT)
-			prog->a = prog->a + 50;
+			prog->a = prog->a + 10;
 		else if (keycode == DOWN)
-			prog->b = prog->b + 50;
+			prog->b = prog->b + 10;
 		else if (keycode == UP)
-			prog->b = prog->b - 50;
-		draw_img(prog, prog->a, prog->b);
+			prog->b = prog->b - 10;
+	//	else if (keycode == PLUS)
+	//		prog->point = prog->point + STEP;
+		fdf_draw(prog);
 	}
+	return (1);
 }
 
 void		special_events(t_prog *prog)
