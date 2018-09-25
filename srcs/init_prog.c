@@ -40,7 +40,9 @@ t_prog			*init_prog(t_prog *prog)
 	prog->img = NULL;
 	prog->array = NULL;
 	prog->flag_s = 0;
-	prog->a = 20;
-	prog->b = 20;
+	prog->a = 50;
+	prog->b = 50;
+	prog->x_step = 0;
+	prog->y_step = 0;
 	return (prog);
 }

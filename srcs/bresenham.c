@@ -16,8 +16,10 @@ static void y_big(t_prog *p, int x1, int y1, int coord)
 {
 	int	x2;
 	int	y2;
+	int y;
 	int	fault;
 
+	y = y1;
 	x2 = coord % p->win_w;
 	y2 = (coord - x2) / p->win_w;
 	fault = abs(y2 - y1) / 2;
@@ -26,14 +28,14 @@ static void y_big(t_prog *p, int x1, int y1, int coord)
 		fault = fault - (x2 - x1);
 		if (fault > 0)
 		{
-			if (y1 > y2)
+			if (y > y2)
 				put_pixel(p, x1, y1--, WHITE);
 			else
 				put_pixel(p, x1, y1++, WHITE);
 		}
 		else
 		{
-			if (y1 > y2)
+			if (y > y2)
 				put_pixel(p, x1++, y1--, WHITE);
 			else
 				put_pixel(p, x1++, y1++, WHITE);
@@ -47,7 +49,9 @@ static void	x_big(t_prog *p, int x1, int y1, int coord)
 	int	x2;
 	int	y2;
 	int	fault;
+	int	y;
 
+	y = y1;
 	x2 = coord % p->win_w;
 	y2 = (coord - x2) / p->win_w;
 	fault = (x2 - x1) / 2;
@@ -58,7 +62,7 @@ static void	x_big(t_prog *p, int x1, int y1, int coord)
 			put_pixel(p, x1++, y1, WHITE);
 		else
 		{
-			if (y1 > y2)
+			if (y > y2)
 				put_pixel(p, x1++, y1--, WHITE);
 			else
 				put_pixel(p, x1++, y1++, WHITE);

@@ -16,7 +16,10 @@ void	put_pixel(t_prog *prog, int x, int y, int color)
 {
 	int	pix;
 
+	if (x < 0 || x > prog->win_w || y < 0 || y > prog->win_h)
+		return ;
 	pix = y * prog->win_w + x;
+	//printf("x = %d - y %d\npix - %d\n", x, y, pix);
 	prog->array[pix] = color;
 }
 
@@ -26,11 +29,13 @@ static void	draw_line(t_prog *p, int i, int j, int coord)
 	int	y1;
 	int	x2;
 	int	y2;
+	int	el;
 
 	x2 = coord % p->win_w;
-	y2 = (coord - x2) / p->win_w;
-	x1 = (i + j) * p->x_step + p->a;
-	y1 = p->win_h / 2 + (j - i + p->number_map[i][j] * 1.3) * p->y_step;
+	y2 = coord / p->win_w;
+	el = p->number_map[i][j];
+	x1 = (i + j) * p->x_step + p->start % p->win_w;
+	y1 = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
 	if ((x2 - x1) == (y2 - y1))
 		while (x1 != x2)
 			put_pixel(p, ++x1, ++y1, WHITE);
@@ -45,11 +50,13 @@ void		place_next_pixel(t_prog *p, int i, int j)
 {
 	int	x;
 	int y;
-	int	el;
+	int el;
 
-	el = p->number_map[i][j] * 1.3;
-	x = (i + j) * p->x_step + p->a;
-	y = p->win_h / 2 + (j - i + el) * p->y_step;
+	el = p->number_map[i][j];
+	x = (i + j) * p->x_step + p->start % p->win_w;
+	y = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
+	//ft_printf("i = %d\nj = %d\n", i, j);
+	//ft_printf("x = %d - y = %d\n", x, y);
 	put_pixel(p, x, y, WHITE);
 	if (i > 0)
 		draw_line(p, i - 1, j, y * p->win_w + x);
