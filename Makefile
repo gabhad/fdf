@@ -54,7 +54,7 @@ libftcomp:
 	@make -C $(LIBFT_PATH)
 
 $(NAME): libftcomp $(OBJS_PATH) $(OBJS_NAME)
-	@$(CC) -o $(NAME) $(OBJS_PATH)*.o $(LIBFT) $(MLX)
+	@$(CC) -g -fsanitize=address -o $(NAME) $(OBJS_PATH)*.o $(LIBFT) $(MLX)
 	@echo '\033[0;32m'***Compiled***'\033[0m'
 
 $(OBJS_PATH):

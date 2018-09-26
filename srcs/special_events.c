@@ -12,11 +12,26 @@
 
 #include "fdf.h"
 
+static void	test_zoom(int keycode, t_prog *prog)
+{
+	if (keycode == ZOOM_IN)
+	{
+		prog->x_step++;
+		prog->y_step++;
+	}
+	else if (keycode == ZOOM_OUT && prog->x_step > 3 && prog->y_step > 3)
+	{
+		prog->x_step--;
+		prog->y_step--;
+	}
+}
+
 static int	key_press(int keycode, t_prog *prog)
 {
 	if (keycode == ESC)
 		quit_program(prog);
-	if ((keycode > 122 && keycode < 127) || keycode == PLUS || keycode == MINUS)
+	if ((keycode > 122 && keycode < 127)
+		|| keycode == ZOOM_IN || keycode == ZOOM_OUT)
 	{
 		mlx_destroy_image(prog->init, prog->img);
 		if (keycode == LEFT)
@@ -27,8 +42,8 @@ static int	key_press(int keycode, t_prog *prog)
 			prog->b = prog->b + 10;
 		else if (keycode == UP)
 			prog->b = prog->b - 10;
-	//	else if (keycode == PLUS)
-	//		prog->point = prog->point + STEP;
+		else
+			test_zoom(keycode, prog);
 		fdf_draw(prog);
 	}
 	return (1);

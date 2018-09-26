@@ -43,8 +43,8 @@ static void	resize_map(t_prog *prog)
 	z = prog->grid->width + prog->grid->height;
 	x = prog->win_w / z;
 	y = prog->win_h / z;
-	if ((x < 5 || y < 4) && prog->flag_s)
-		size_error(prog, 4 * z + 100);
+	if ((x < 3 || y < 3) && prog->flag_s)
+		size_error(prog, 3 * z + 50);
 	if (x < 4 && !prog->flag_s)
 		prog->win_w = 4 * z + 100;
 	if (y < 4 && !prog->flag_s)
@@ -53,11 +53,14 @@ static void	resize_map(t_prog *prog)
 
 void		draw_img(t_prog *prog, int a, int b)
 {
-	int		start;
+	t_point	*start;
 	int		i;
 	int		j;
 
-	start = (prog->grid->width * prog->x_step + b) * prog->win_w + a;
+	if (!(start = (t_point*)malloc(sizeof(t_point))))
+		malloc_error(prog);
+	start->x = a;
+	start->y = prog->grid->width * prog->x_step + b;
 	prog->start = start;
 	i = 0;
 	j = 0;
@@ -81,11 +84,11 @@ void		fdf_draw(t_prog *p)
 
 	if (!p->x_step && !p->y_step)
 	{
+		resize_map(p);
 		x_step = (p->win_w - 100) / (p->grid->width + p->grid->height);
 		y_step = (p->win_h - 100) / (p->grid->width + p->grid->height);
 		p->x_step = x_step;
 		p->y_step = y_step;
-		resize_map(p);
 		init_draw(p);
 	}
 	init_img(p);

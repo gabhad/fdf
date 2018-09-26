@@ -29,8 +29,8 @@ static void	draw_line(t_prog *p, int i, int j)
 	int	el;
 
 	el = p->number_map[i][j];
-	x1 = (i + j) * p->x_step + p->start % p->win_w;
-	y1 = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
+	x1 = (i + j) * p->x_step + p->start->x;
+	y1 = p->start->y + (i - j - STEP * el) * p->y_step;
 	if ((p->point->x - x1) == (p->point->y - y1))
 		while (x1 != p->point->x)
 			put_pixel(p, ++x1, ++y1, WHITE);
@@ -43,15 +43,15 @@ static void	draw_line(t_prog *p, int i, int j)
 
 void		place_next_pixel(t_prog *p, int i, int j)
 {
-	int 	el;
+	int		el;
 	t_point *point;
 
 	el = p->number_map[i][j];
 	if (!(point = (t_point*)malloc(sizeof(t_point))))
 		malloc_error(p);
 	p->point = point;
-	point->x = (i + j) * p->x_step + p->start % p->win_w;
-	point->y = p->start / p->win_w + (i - j - STEP * el) * p->y_step;
+	point->x = (i + j) * p->x_step + p->start->x;
+	point->y = p->start->y + (i - j - STEP * el) * p->y_step;
 	put_pixel(p, point->x, point->y, WHITE);
 	if (i > 0)
 		draw_line(p, i - 1, j);

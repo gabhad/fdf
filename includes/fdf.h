@@ -28,7 +28,7 @@
 # define ZOOM_OUT 35
 # define PLUS 69
 # define MINUS 78
-# define STEP .3
+# define STEP .45
 # define BLUE 0x000000FF
 # define RED 0x00FF0000
 # define YELLOW 0x00FFFF00
@@ -39,43 +39,43 @@
 # define PARMA 0x00CFA0E9
 # define PRASIN 0x004CA66B
 
-typedef struct		s_grid
+typedef struct	s_grid
 {
-	int				width;
-	int				height;
-}					t_grid;
+	int			width;
+	int			height;
+}				t_grid;
 
-typedef struct		t_point
+typedef struct	s_point
 {
-	int				x;
-	int				y;
-}					t_point;
+	int			x;
+	int			y;
+}				t_point;
 
-typedef struct		s_prog
+typedef struct	s_prog
 {
-	t_grid			*grid;
-	t_point			*point;
-	char			*title;
-	char			*map;
-	int				**number_map;
-	int				fd;
-	int				win_w;
-	int				win_h;
-	void			*init;
-	void			*window;
-	void			*img;
-	int				*array;
-	int				bpp;
-	int				s_l;
-	int				endian;
-	int				color;
-	int				flag_s;
-	int				a;
-	int				b;
-	int				start;
-	int				x_step;
-	int				y_step;
-}					t_prog;
+	t_grid		*grid;
+	t_point		*start;
+	t_point		*point;
+	char		*title;
+	char		*map;
+	int			**number_map;
+	int			fd;
+	int			win_w;
+	int			win_h;
+	void		*init;
+	void		*window;
+	void		*img;
+	int			*array;
+	int			bpp;
+	int			s_l;
+	int			endian;
+	int			color;
+	int			flag_s;
+	int			a;
+	int			b;
+	int			x_step;
+	int			y_step;
+}				t_prog;
 
 /*
 ** Gemeral functions
@@ -126,31 +126,5 @@ void			special_events(t_prog *prog);
 void			quit_program(t_prog *prog);
 void			bresenham(t_prog *p, int x1, int y1);
 void			put_pixel(t_prog *prog, int x, int y, int color);
-
-/*
-** MiniLibx functions
-*/
-
-void			*mlx_init();
-
-void			*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
-void			*mlx_clear_widow(void *mlx_ptr, void *win_ptr);
-int				mlx_destroy_window(void *mlx_ptr, void *win_ptr);
-
-int				mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
-
-void			*mlx_new_image(void *mlx_ptr, int width, int height);
-int				mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
-char			*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
-int				mlx_destroy_image(void *mlx_ptr, void *img_ptr);
-unsigned int	mlx_get_color_value(void *mlx_ptr, int color);
-void			*mlx_xpm_to_image(void *mlx_ptr, char **xpm_data, int *width, int *height);
-void			*mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
-
-int				mlx_loop(void *mlx_ptr);
-int				mlx_key_hook(void *win_ptr, int (*funct_ptr)(), void *param);
-int				mlx_mouse_hook(void *win_ptr, int (*funct_ptr)(), void *param);
-int				mlx_expose_hook(void *win_ptr, int (*funct_ptr)(), void *param);
-int				mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
 
 #endif

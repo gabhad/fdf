@@ -55,7 +55,7 @@ void		fdf_parser(int argc, char **argv)
 	if (prog->fd < 1)
 		no_map(prog);
 	read_map(prog);
-	fdf_draw(prog);
 	close(prog->fd);
+	fdf_draw(prog);
 	clear_struct(prog);
 }
