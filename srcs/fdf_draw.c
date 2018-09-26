@@ -12,15 +12,17 @@
 
 #include "fdf.h"
 
-static void	init_img(t_prog *prog)
+static void	init_img(t_prog *p)
 {
 	int		*array;
 	void	*img;
 
-	img = mlx_new_image(prog->init, prog->win_w, prog->win_h);
-	prog->img = img;
-	array = (int*)mlx_get_data_addr(img, &prog->bpp, &prog->s_l, &prog->endian);
-	prog->array = array;
+	if (!(img = mlx_new_image(p->init, p->win_w, p->win_h)))
+		malloc_error(p);
+	p->img = img;
+	if (!(array = (int*)mlx_get_data_addr(img, &p->bpp, &p->s_l, &p->endian)))
+		malloc_error(p);
+	p->array = array;
 }
 
 static void	init_draw(t_prog *prog)
@@ -28,8 +30,10 @@ static void	init_draw(t_prog *prog)
 	void	*init;
 	void	*window;
 
-	init = mlx_init();
-	window = mlx_new_window(init, prog->win_w, prog->win_h, prog->title);
+	if (!(init = mlx_init()))
+		malloc_error(prog);
+	if (!(window = mlx_new_window(init, prog->win_w, prog->win_h, prog->title)))
+		malloc_error(prog);
 	prog->init = init;
 	prog->window = window;
 }
@@ -57,11 +61,14 @@ void		draw_img(t_prog *prog, int a, int b)
 	int		i;
 	int		j;
 
-	if (!(start = (t_point*)malloc(sizeof(t_point))))
-		malloc_error(prog);
-	start->x = a;
-	start->y = prog->grid->width * prog->x_step + b;
-	prog->start = start;
+	if (!prog->start || prog->start->x != a || prog->start->y != prog->grid->width * prog->x_step + b)
+	{
+		if (!(start = (t_point*)malloc(sizeof(t_point))))
+			malloc_error(prog);
+		start->x = a;
+		start->y = prog->grid->width * prog->x_step + b;
+		prog->start = start;
+	}
 	i = 0;
 	j = 0;
 	while (i < prog->grid->height)
@@ -78,7 +85,6 @@ void		draw_img(t_prog *prog, int a, int b)
 
 void		fdf_draw(t_prog *p)
 {
-	int		*array;
 	int		x_step;
 	int		y_step;
 
@@ -92,8 +98,6 @@ void		fdf_draw(t_prog *p)
 		init_draw(p);
 	}
 	init_img(p);
-	array = (int*)mlx_get_data_addr(p->img, &p->bpp, &p->s_l, &p->endian);
-	p->array = array;
 	draw_img(p, p->a, p->b);
 	mlx_put_image_to_window(p->init, p->window, p->img, 0, 0);
 	special_events(p);

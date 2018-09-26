@@ -12,6 +12,26 @@
 
 #include "fdf.h"
 
+static void	change_gradiant(t_prog *prog, int change)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < prog->grid->height)
+	{
+		while (j < prog->grid->width)
+		{
+			if (prog->number_map[i][j])
+				prog->number_map[i][j] = prog->number_map[i][j] + change;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 static void	test_zoom(int keycode, t_prog *prog)
 {
 	if (keycode == ZOOM_IN)
@@ -24,13 +44,17 @@ static void	test_zoom(int keycode, t_prog *prog)
 		prog->x_step--;
 		prog->y_step--;
 	}
+	else if (keycode == PLUS)
+		change_gradiant(prog, 1);
+	else if (keycode == MINUS)
+		change_gradiant(prog, -1);
 }
 
 static int	key_press(int keycode, t_prog *prog)
 {
 	if (keycode == ESC)
 		quit_program(prog);
-	if ((keycode > 122 && keycode < 127)
+	if ((keycode > 122 && keycode < 127) || keycode == PLUS || keycode == MINUS
 		|| keycode == ZOOM_IN || keycode == ZOOM_OUT)
 	{
 		mlx_destroy_image(prog->init, prog->img);
