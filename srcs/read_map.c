@@ -15,7 +15,9 @@
 void	read_map(t_prog *prog)
 {
 	char	*line;
+	int		i;
 
+	i = 0;
 	line = NULL;
 	if (get_next_line(prog->fd, &line) < 1)
 		no_map(prog);
@@ -25,6 +27,9 @@ void	read_map(t_prog *prog)
 	{
 		prog->map = ft_strjoinfree(prog->map, line);
 		prog->map = ft_strjoinfree(prog->map, ft_strdup("\n"));
+		i++;
+		if (i > 200)
+			map_too_big(prog);
 	}
 	convert_map(prog);
 }
