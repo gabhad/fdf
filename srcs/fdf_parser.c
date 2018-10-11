@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void	flag_parser(char **argv, int i, t_prog *prog)
+static int	flag_parser(char **argv, int i, t_prog *prog)
 {
 	if (argv[i][0] != '-')
 	{
@@ -20,11 +20,17 @@ static void	flag_parser(char **argv, int i, t_prog *prog)
 		usage();
 	}
 	else if (argv[i][1] == 's')
+	{
 		flag_s(prog, argv, i);
+		return (1);
+	}
 	else if (argv[i][1] == 'h')
 		flag_h(prog);
 	else if (argv[i][1] == 't')
+	{
 		flag_t(prog, argv, i);
+		return (1);
+	}
 	else if (argv[i][1] == 'v')
 		prog->verbal = 1;
 	else
@@ -32,6 +38,7 @@ static void	flag_parser(char **argv, int i, t_prog *prog)
 		clear_struct(prog);
 		usage();
 	}
+	return (0);
 }
 
 void		fdf_parser(int argc, char **argv)
@@ -50,8 +57,8 @@ void		fdf_parser(int argc, char **argv)
 			prog->fd = fd;
 		else if (fd > 0 && prog->fd > 0)
 			multi_maps(prog);
-		else
-			flag_parser(argv, i++, prog);
+		else if (flag_parser(argv, i, prog))
+			i++;
 		i++;
 	}
 	if (prog->fd < 1)

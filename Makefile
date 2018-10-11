@@ -26,8 +26,8 @@ SRC_FILES =		fdf.c \
 				init_prog.c \
 				map_checker.c \
 				read_map.c \
-				place_next_pixel.c \
 				print_map.c \
+				place_next_pixel.c \
 				special_events.c \
 				quit_program.c
 SRCS_PATH =		srcs/
@@ -36,9 +36,11 @@ SRCS = 			$(addprefix $(SRCS_PATH), $(SRC_FILES))
 CC =			gcc
 FLAGS =			-Wall -Wextra -Werror
 
-MLX =			-lmlx -framework OpenGL -framework Appkit
+MLX_PATH =		minilibx/
+MLX =			-L$(MLX_PATH) -lmlx -framework OpenGL -framework Appkit
 
 LIBFT_PATH =	libft/
+LDLIBS =		-lft
 LIBFT_INCL =	$(addprefix $(LIBFT_PATH), includes)
 LIBFT =			$(addprefix $(LIBFT_PATH), libft.a)
 
@@ -51,28 +53,26 @@ INCL = $(addprefix $(INCLUDES_PATH),$(HEADER_FILES))
 
 all: $(NAME)
 
-libftcomp:
-	@make -C $(LIBFT_PATH)
-
-$(NAME): libftcomp $(OBJS_PATH) $(OBJS_NAME)
-	@$(CC) -g -fsanitize=address -Wall -Wextra -Werror -o $(NAME) $(OBJS_PATH)*.o $(LIBFT) $(MLX)
-	@echo '\033[0;32m'***Compiled***'\033[0m'
+$(NAME): $(OBJS_PATH) $(OBJS_NAME) 
+	make -C $(LIBFT_PATH)
+	make -C $(MLX_PATH)
+	$(CC) $(OBJS_PATH)*.o -L$(LIBFT_PATH) $(LDLIBS) $(MLX) -o $(NAME)
 
 $(OBJS_PATH):
-	@mkdir $(OBJS_PATH) 2> /dev/null || true
+	mkdir $(OBJS_PATH) 2> /dev/null || true
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCL)
-			@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES_PATH) -I $(LIBFT_INCL)
+	$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES_PATH) -I $(LIBFT_INCL)
 
 clean:
-	@/bin/rm -rf $(OBJS_PATH)
-	@make -C libft/ clean 2> /dev/null || true
-	@echo '\033[0;31m'***Deleted objects***'\033[0m'
+	make clean -C $(LIBFT_PATH)
+	make clean -C $(MLX_PATH)
+	rm -fv $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
 fclean: clean
-	@/bin/rm -f $(NAME)
-	@make -C libft/ fclean 2> /dev/null || true
-	@echo '\033[0;31m'***Deleted objects and library***'\033[0m' 
+	make fclean -C libft/
+	rm -fv $(NAME)
 
 re: fclean all
 

@@ -18,7 +18,6 @@ void	usage(void)
 	ft_printf(" -v | -h for help\n");
 	ft_printf("\tWhile using the program, zoom in/out using o/p\n");
 	ft_printf("\tMove using arrow keys\n");
-	ft_printf("\tIncrease/decrease altitude using +/-\n");
 	ft_printf("\tReset the drawing with R\n");
 	ft_printf("\tClose the program using Esc.\n");
 	exit(0);

@@ -96,7 +96,7 @@ void		fdf_draw(t_prog *p)
 		y_step = (p->win_h - 100) / (p->grid->width + p->grid->height);
 		p->x_step = x_step;
 		p->y_step = y_step;
-		if (p->verbal)
+		if (p->verbal && !p->init)
 			print_map(p);
 		init_draw(p);
 	}
