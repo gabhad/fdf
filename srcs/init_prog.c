@@ -45,5 +45,6 @@ t_prog			*init_prog(t_prog *prog)
 	prog->x_step = 0;
 	prog->y_step = 0;
 	prog->start = NULL;
+	prog->verbal = 0;
 	return (prog);
 }

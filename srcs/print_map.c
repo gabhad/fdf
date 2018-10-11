@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flag_t.c                                           :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghaddad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/14 16:08:04 by ghaddad           #+#    #+#             */
-/*   Updated: 2018/09/14 16:08:14 by ghaddad          ###   ########.fr       */
+/*   Created: 2018/10/11 09:59:13 by ghaddad           #+#    #+#             */
+/*   Updated: 2018/10/11 09:59:27 by ghaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	flag_t(t_prog *prog, char **argv, int i)
+void	print_map(t_prog *prog)
 {
-	int	n;
+	int	i;
+	int	j;
 
-	n = 0;
-	if (!argv[i + 1])
+	i = 0;
+	j = 0;
+	while (i < prog->grid->height)
 	{
-		clear_struct(prog);
-		usage();
-	}
-	else
-	{
-		if (ft_strlen(argv[i + 1]) > 15)
-			error_title(prog);
-		while (argv[i + 1][n])
-			if (!isprint(argv[i + 1][n++]))
-				error_title(prog);
-		ft_strdel(&(prog->title));
-		prog->title = ft_strdup(argv[i + 1]);
+		while (j < prog->grid->width)
+		{
+			ft_printf("[%d]", prog->number_map[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		j = 0;
+		i++;
 	}
 }

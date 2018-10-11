@@ -25,6 +25,8 @@ static void	flag_parser(char **argv, int i, t_prog *prog)
 		flag_h(prog);
 	else if (argv[i][1] == 't')
 		flag_t(prog, argv, i);
+	else if (argv[i][1] == 'v')
+		prog->verbal = 1;
 	else
 	{
 		clear_struct(prog);

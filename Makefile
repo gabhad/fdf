@@ -27,6 +27,7 @@ SRC_FILES =		fdf.c \
 				map_checker.c \
 				read_map.c \
 				place_next_pixel.c \
+				print_map.c \
 				special_events.c \
 				quit_program.c
 SRCS_PATH =		srcs/
@@ -54,7 +55,7 @@ libftcomp:
 	@make -C $(LIBFT_PATH)
 
 $(NAME): libftcomp $(OBJS_PATH) $(OBJS_NAME)
-	@$(CC) -Wall -Wextra -Werror -o $(NAME) $(OBJS_PATH)*.o $(LIBFT) $(MLX)
+	@$(CC) -g -fsanitize=address -Wall -Wextra -Werror -o $(NAME) $(OBJS_PATH)*.o $(LIBFT) $(MLX)
 	@echo '\033[0;32m'***Compiled***'\033[0m'
 
 $(OBJS_PATH):

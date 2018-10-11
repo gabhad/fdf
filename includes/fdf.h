@@ -25,8 +25,7 @@
 # define RIGHT 124
 # define ZOOM_IN 31
 # define ZOOM_OUT 35
-# define PLUS 69
-# define MINUS 78
+# define REF 15
 # define STEP .45
 # define BLUE 0x000000FF
 # define RED 0x00FF0000
@@ -74,6 +73,7 @@ typedef struct	s_prog
 	int			b;
 	int			x_step;
 	int			y_step;
+	int			verbal;
 }				t_prog;
 
 /*
@@ -125,5 +125,6 @@ void			special_events(t_prog *prog);
 void			quit_program(t_prog *prog);
 void			bresenham(t_prog *p, int x1, int y1);
 void			put_pixel(t_prog *prog, int x, int y, int color);
+void			print_map(t_prog *prog);
 
 #endif

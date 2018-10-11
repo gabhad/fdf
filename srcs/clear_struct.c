@@ -40,5 +40,7 @@ void		clear_struct(t_prog *prog)
 		free(prog->grid);
 	if (prog->array)
 		free(prog->array);
+	if (prog->start)
+		free(prog->start);
 	free(prog);
 }

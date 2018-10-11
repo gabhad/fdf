@@ -12,24 +12,12 @@
 
 #include "fdf.h"
 
-static void	change_gradiant(t_prog *prog, int change)
+static void	refresh(t_prog *prog)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < prog->grid->height)
-	{
-		while (j < prog->grid->width)
-		{
-			if (prog->number_map[i][j])
-				prog->number_map[i][j] = prog->number_map[i][j] + change;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
+	prog->a = 50;
+	prog->b = 50;
+	prog->x_step = 0;
+	prog->y_step = 0;
 }
 
 static void	test_zoom(int keycode, t_prog *prog)
@@ -44,18 +32,14 @@ static void	test_zoom(int keycode, t_prog *prog)
 		prog->x_step--;
 		prog->y_step--;
 	}
-	else if (keycode == PLUS)
-		change_gradiant(prog, 1);
-	else if (keycode == MINUS)
-		change_gradiant(prog, -1);
 }
 
 static int	key_press(int keycode, t_prog *prog)
 {
 	if (keycode == ESC)
 		quit_program(prog);
-	if ((keycode > 122 && keycode < 127) || keycode == PLUS || keycode == MINUS
-		|| keycode == ZOOM_IN || keycode == ZOOM_OUT)
+	if ((keycode > 122 && keycode < 127)
+		|| keycode == ZOOM_IN || keycode == ZOOM_OUT || keycode == REF)
 	{
 		mlx_destroy_image(prog->init, prog->img);
 		if (keycode == LEFT)
@@ -66,6 +50,8 @@ static int	key_press(int keycode, t_prog *prog)
 			prog->b = prog->b + 10;
 		else if (keycode == UP)
 			prog->b = prog->b - 10;
+		else if (keycode == REF)
+			refresh(prog);
 		else
 			test_zoom(keycode, prog);
 		fdf_draw(prog);

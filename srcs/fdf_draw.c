@@ -55,27 +55,28 @@ static void	resize_map(t_prog *prog)
 		prog->win_h = 4 * z + 100;
 }
 
-void		draw_img(t_prog *prog, int a, int b)
+void		draw_img(t_prog *p, int a, int b)
 {
 	t_point	*start;
 	int		i;
 	int		j;
 
-	if (!prog->start || prog->start->x != a || prog->start->y != prog->grid->width * prog->x_step + b)
+	if (!p->start || p->start->x != a
+		|| p->start->y != p->grid->width * p->x_step + b)
 	{
 		if (!(start = (t_point*)malloc(sizeof(t_point))))
-			malloc_error(prog);
+			malloc_error(p);
 		start->x = a;
-		start->y = prog->grid->width * prog->x_step + b;
-		prog->start = start;
+		start->y = p->grid->width * p->x_step + b;
+		p->start = start;
 	}
 	i = 0;
 	j = 0;
-	while (i < prog->grid->height)
+	while (i < p->grid->height)
 	{
-		while (j < prog->grid->width)
+		while (j < p->grid->width)
 		{
-			place_next_pixel(prog, i, j);
+			place_next_pixel(p, i, j);
 			j++;
 		}
 		j = 0;
@@ -95,6 +96,8 @@ void		fdf_draw(t_prog *p)
 		y_step = (p->win_h - 100) / (p->grid->width + p->grid->height);
 		p->x_step = x_step;
 		p->y_step = y_step;
+		if (p->verbal)
+			print_map(p);
 		init_draw(p);
 	}
 	init_img(p);
