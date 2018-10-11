@@ -35,16 +35,13 @@ static int	count_bis(t_prog *prog, int i)
 int			count(t_prog *prog)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	while (i < prog->grid->height)
+	while (prog->map[i])
 	{
 		if (!(i = count_bis(prog, i)))
 			return (0);
 		i++;
-		j++;
 	}
 	return (1);
 }
