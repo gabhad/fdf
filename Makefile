@@ -67,8 +67,8 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCL)
 clean:
 	make clean -C $(LIBFT_PATH)
 	make clean -C $(MLX_PATH)
-	rm -fv $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	rm -fv $(OBJS_NAME)
+	@rmdir $(OBJS_PATH) 2> /dev/null || true
 
 fclean: clean
 	make fclean -C libft/
