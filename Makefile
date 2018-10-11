@@ -59,7 +59,7 @@ $(NAME): $(OBJS_PATH) $(OBJS_NAME)
 	$(CC) $(OBJS_PATH)*.o -L$(LIBFT_PATH) $(LDLIBS) $(MLX) -o $(NAME)
 
 $(OBJS_PATH):
-	mkdir $(OBJS_PATH) 2> /dev/null || true
+	@mkdir $(OBJS_PATH) 2> /dev/null || true
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCL)
 	$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES_PATH) -I $(LIBFT_INCL)
