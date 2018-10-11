@@ -34,6 +34,8 @@ static void	clean_structure(t_prog *prog)
 		free(prog->grid);
 	if (prog->start)
 		free(prog->start);
+	if (prog->point)
+		free(prog->point);
 	free(prog);
 }
 
