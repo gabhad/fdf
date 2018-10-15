@@ -102,7 +102,10 @@ void		fdf_draw(t_prog *p)
 	}
 	init_img(p);
 	if (p->start)
+	{
 		free(p->start);
+		p->start = NULL;
+	}
 	draw_img(p, p->a, p->b);
 	mlx_put_image_to_window(p->init, p->window, p->img, 0, 0);
 	special_events(p);

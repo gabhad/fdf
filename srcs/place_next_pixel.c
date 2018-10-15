@@ -48,7 +48,10 @@ void		place_next_pixel(t_prog *p, int i, int j)
 
 	el = p->number_map[i][j];
 	if (p->point)
+	{
 		free(p->point);
+		p->point = NULL;
+	}
 	if (!(point = (t_point*)malloc(sizeof(t_point))))
 		malloc_error(p);
 	p->point = point;

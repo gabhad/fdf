@@ -27,7 +27,7 @@ static void	test_zoom(int keycode, t_prog *prog)
 		prog->x_step++;
 		prog->y_step++;
 	}
-	else if (keycode == ZOOM_OUT && prog->x_step > 3 && prog->y_step > 3)
+	else if (keycode == ZOOM_OUT && prog->x_step > 2 && prog->y_step > 2)
 	{
 		prog->x_step--;
 		prog->y_step--;
