@@ -12,24 +12,10 @@
 
 NAME =			fdf
 
-SRC_FILES =		fdf.c \
-				bresenham.c \
-				clear_struct.c \
-				convert_map.c \
-				error.c \
-				error2.c \
-				fdf_draw.c \
-				fdf_parser.c \
-				flag_h.c \
-				flag_s.c \
-				flag_t.c \
-				init_prog.c \
-				map_checker.c \
-				read_map.c \
-				print_map.c \
-				place_next_pixel.c \
-				special_events.c \
-				quit_program.c
+SRC_FILES =		fdf.c bresenham.c clear_struct.c convert_map.c error.c \
+				error2.c fdf_draw.c fdf_parser.c flag_h.c flag_s.c \
+				flag_t.c init_prog.c map_checker.c read_map.c print_map.c \
+				place_next_pixel.c special_events.c quit_program.c
 SRCS_PATH =		srcs/
 SRCS = 			$(addprefix $(SRCS_PATH), $(SRC_FILES))
 
@@ -40,8 +26,9 @@ MLX_PATH =		minilibx/
 MLX =			-L$(MLX_PATH) -lmlx -framework OpenGL -framework Appkit
 
 LIBFT_PATH =	libft/
+LIBFT_SRC =		libft/srcs/
 LDLIBS =		-lft
-LIBFT_INCL =	$(addprefix $(LIBFT_PATH), includes)
+LIBFT_INCL =	libft/includes/
 LIBFT =			$(addprefix $(LIBFT_PATH), libft.a)
 
 OBJS_PATH =		objects/
@@ -54,14 +41,14 @@ INCL = $(addprefix $(INCLUDES_PATH),$(HEADER_FILES))
 all: $(NAME)
 
 $(NAME): $(OBJS_PATH) $(OBJS_NAME) 
-	make -C $(LIBFT_PATH)
-	make -C $(MLX_PATH)
+	@make -C $(LIBFT_PATH)
+	@make -C $(MLX_PATH)
 	$(CC) $(OBJS_PATH)*.o -L$(LIBFT_PATH) $(LDLIBS) $(MLX) -o $(NAME)
 
 $(OBJS_PATH):
 	@mkdir $(OBJS_PATH) 2> /dev/null || true
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCL)
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCL) $(LIBFT_INCL)*.h $(LIBFT_SRC)*.c
 	$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES_PATH) -I $(LIBFT_INCL)
 
 clean:
